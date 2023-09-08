@@ -114,7 +114,7 @@ const CalDueDate = ({ jsonData, minDate, maxDate, bgColor }) => {
             key={task.c_id}
             className="p-4 mb-4 text-left bg-gray-100 rounded-md shadow-md hover:bg-gray-300"
           >
-            <Link href={`/contract/${task.c_id}`}>
+            <Link href={`/task/${task.c_id}`}>
               <strong>
                 {orgMappings[task.Organization_Code] || task.Organization_Code}
               </strong>
