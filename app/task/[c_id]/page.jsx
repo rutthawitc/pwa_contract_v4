@@ -1,20 +1,37 @@
-"use client";
-import useSWR from "swr";
-import React from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+'use client';
+import useSWR from 'swr';
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import ConvertDate from '@/libs/ConvertDate';
+import { BarLoader } from 'react-spinners';
+import axios from 'axios';
 
 const Page = ({ params }) => {
   const router = useRouter();
   //console.log(params.c_id);
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  //const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const fetcher = (url) => axios.get(url).then((res) => res.data);
   const { data, error, isLoading } = useSWR(
-    "http://localhost:3004/data",
+    'http://localhost:3004/data',
     fetcher
   );
 
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
+  if (error)
+    return (
+      <div className='text-3xl font-bold text-center text-red-500'>
+        Failed to load!
+      </div>
+    );
+  if (isLoading)
+    return (
+      <BarLoader
+        color='#36d7b7'
+        height={15}
+        loading
+        speedMultiplier={1}
+        width={300}
+      />
+    );
 
   //   const fillteredDate = data.filter(
   //     (item) =>
@@ -24,43 +41,36 @@ const Page = ({ params }) => {
 
   // Find the specific data item based on the ID
   const dataItem = data.find((item) => item.c_id === params.c_id);
-  console.log(dataItem);
+  //console.log(dataItem);
   if (!dataItem) {
     return <div>ไม่มีข้อมูล</div>;
   }
 
   //Org Mapping
   const orgMappings = {
-    1059: "กปภ.ข.6",
-    1060: "กปภ.สาขาขอนแก่น(ชั้นพิเศษ)",
-    1061: "กปภ.สาขาบ้านไผ่",
-    1062: "กปภ.สาขาชุมแพ",
-    1063: "กปภ.สาขาน้ำพอง",
-    1064: "กปภ.สาขาชนบท",
-    1065: "กปภ.สาขากระนวน",
-    1066: "กปภ.สาขาหนองเรือ",
-    1067: "กปภ.สาขาเมืองพล",
-    1068: "กปภ.สาขากาฬสินธุ์",
-    1069: "กปภ.สาขากุฉินารายณ์",
-    1070: "กปภ.สาขาสมเด็จ",
-    1071: "กปภ.สาขามหาสารคาม",
-    1072: "กปภ.สาขาพยัคภูมิพิสัย",
-    1073: "กปภ.สาขาชัยภูมิ",
-    1074: "กปภ.สาขาแก้งคร้อ",
-    1075: "กปภ.สาขาจัตุรัส",
-    1076: "กปภ.สาขาหนองบัวแดง",
-    1077: "กปภ.สาขาภูเขียว",
-    1133: "กปภ.สาขาร้อยเอ็ด",
-    1134: "กปภ.สาขาโพนทอง",
-    1135: "กปภ.สาขาสุวรรณภูมิ",
-    1245: "กปภ.สาขาบำเหน็จณรงค์",
-  };
-  //Thai Currency
-  const formatCurrency = (value) => {
-    return value.toLocaleString("th-TH", {
-      style: "currency",
-      currency: "THB",
-    });
+    1059: 'กปภ.ข.6',
+    1060: 'กปภ.สาขาขอนแก่น(ชั้นพิเศษ)',
+    1061: 'กปภ.สาขาบ้านไผ่',
+    1062: 'กปภ.สาขาชุมแพ',
+    1063: 'กปภ.สาขาน้ำพอง',
+    1064: 'กปภ.สาขาชนบท',
+    1065: 'กปภ.สาขากระนวน',
+    1066: 'กปภ.สาขาหนองเรือ',
+    1067: 'กปภ.สาขาเมืองพล',
+    1068: 'กปภ.สาขากาฬสินธุ์',
+    1069: 'กปภ.สาขากุฉินารายณ์',
+    1070: 'กปภ.สาขาสมเด็จ',
+    1071: 'กปภ.สาขามหาสารคาม',
+    1072: 'กปภ.สาขาพยัคภูมิพิสัย',
+    1073: 'กปภ.สาขาชัยภูมิ',
+    1074: 'กปภ.สาขาแก้งคร้อ',
+    1075: 'กปภ.สาขาจัตุรัส',
+    1076: 'กปภ.สาขาหนองบัวแดง',
+    1077: 'กปภ.สาขาภูเขียว',
+    1133: 'กปภ.สาขาร้อยเอ็ด',
+    1134: 'กปภ.สาขาโพนทอง',
+    1135: 'กปภ.สาขาสุวรรณภูมิ',
+    1245: 'กปภ.สาขาบำเหน็จณรงค์',
   };
 
   // render data
@@ -68,13 +78,13 @@ const Page = ({ params }) => {
   return (
     <>
       <>
-        <button type="button" onClick={() => router.back()}>
-          <h2 className="px-12 py-2 mx-8 mt-2 font-semibold text-center text-gray-700 rounded-lg shadow sm:mx-0 sm:px-1 bg-slate-400 hover:bg-slate-300 md:mx-1 md:px-4">
+        <button type='button' onClick={() => router.back()}>
+          <h2 className='px-12 py-2 mx-8 mt-2 font-semibold text-center text-gray-700 rounded-lg shadow sm:mx-0 sm:px-1 bg-slate-400 hover:bg-slate-300 md:mx-1 md:px-4'>
             Back
           </h2>
         </button>
       </>
-      <div className="px-12 py-8 mx-8 mt-4 rounded-md shadow-md bg-slate-200 sm:mx-0 sm:px-1 md:mx-1 md:px-4">
+      <div className='px-12 py-8 mx-8 mt-4 rounded-md shadow-md bg-slate-200 sm:mx-0 sm:px-1 md:mx-1 md:px-4'>
         <strong>ประเภท: </strong> {dataItem.Main_Guarantee_Type}
         <br />
         <strong>
@@ -88,63 +98,18 @@ const Page = ({ params }) => {
         <br />
         <strong>โครงการ: </strong> {dataItem.Subject}
         <br />
-        <strong>วันครบกำหนด: </strong> {convertDate(dataItem.Contract_Due_Date)}
+        <strong>วันครบกำหนด: </strong> {ConvertDate(dataItem.Contract_Due_Date)}
         <br />
-        <strong>วันที่ตรวจรับ: </strong> {convertDate(dataItem.Approval_Date)}
+        <strong>วันที่ตรวจรับ: </strong> {ConvertDate(dataItem.Approval_Date)}
       </div>
+      <>
+        <button type='button' onClick={() => router.back()}>
+          <h2 className='px-12 py-2 mx-8 mt-4 font-semibold text-center text-gray-700 rounded-lg shadow bg-slate-400 hover:bg-slate-300 sm:mx-0 sm:px-1 md:mx-1 md:px-4'>
+            Back
+          </h2>
+        </button>
+      </>
     </>
   );
 };
 export default Page;
-
-//Date Convert
-const convertDate = (inputDate) => {
-  // Create an array of month abbreviations in English
-  const monthAbbreviationsEn = [
-    "JAN",
-    "FEB",
-    "MAR",
-    "APR",
-    "MAY",
-    "JUN",
-    "JUL",
-    "AUG",
-    "SEP",
-    "OCT",
-    "NOV",
-    "DEC",
-  ];
-
-  // Create an array of month names in Thai
-  const monthNamesTh = [
-    "มกราคม",
-    "กุมภาพันธ์",
-    "มีนาคม",
-    "เมษายน",
-    "พฤษภาคม",
-    "มิถุนายน",
-    "กรกฎาคม",
-    "สิงหาคม",
-    "กันยายน",
-    "ตุลาคม",
-    "พฤศจิกายน",
-    "ธันวาคม",
-  ];
-
-  // Split the inputDate into parts (day, month abbreviation, year)
-  const dateParts = inputDate.split("-");
-  const day = dateParts[0];
-  const monthAbbreviation = dateParts[1].toUpperCase();
-  const year = dateParts[2];
-
-  // Find the index of the month abbreviation in the English array
-  const monthIndex = monthAbbreviationsEn.indexOf(monthAbbreviation);
-
-  // Get the corresponding month name in Thai
-  const monthNameTh = monthNamesTh[monthIndex];
-
-  // Construct the Thai date string
-  const thaiDate = `${day} ${monthNameTh} ${parseInt(year) + 2000}`; // Assuming years are in the 2000s
-
-  return thaiDate;
-};
