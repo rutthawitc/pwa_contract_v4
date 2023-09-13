@@ -9,8 +9,8 @@ import axios from 'axios';
 const Page = ({ params }) => {
   const router = useRouter();
   //console.log(params.c_id);
-  //const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const fetcher = (url) => axios.get(url).then((res) => res.data);
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  //const fetcher = (url) => axios.get(url).then((res) => res.data);
   const { data, error, isLoading } = useSWR(
     //'http://localhost:3004/data',
     'http://110.76.155.100:10002/data',
