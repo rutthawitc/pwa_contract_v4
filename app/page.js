@@ -8,12 +8,14 @@ import axios from 'axios';
 export default function Home() {
   //const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const fetcher = (url) => axios.get(url).then((res) => res.data);
-  const { data, error, isLoading } = useSWR(
-    //'http://localhost:3004/data',
-    'http://110.76.155.100:10002/data/',
-    fetcher
-  );
-
+  // const { data, error, isLoading } = useSWR(
+  //   //'http://localhost:3004/data',
+  //   'http://110.76.155.100:10002/data/',
+  //   fetcher
+  // );
+  //const fetcher = (url) => fetch(url).then((res) => res.json());
+  const { data, error, isLoading } = useSWR('/api/getdata', fetcher);
+  //console.log(data);
   if (error)
     return (
       <div className='text-3xl font-bold text-center text-red-500'>
