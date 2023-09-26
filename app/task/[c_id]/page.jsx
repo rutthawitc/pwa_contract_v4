@@ -94,7 +94,7 @@ const Page = ({ params }) => {
             dataItem.Organization_Code}
         </strong>
         <br />
-        <strong>เลขที่สัญญา: </strong> {dataItem.Contract_Number}
+        <strong>สัญญาเลขที่: </strong> {dataItem.Contract_Number}
         <br />
         <strong>บริษัท:</strong> {dataItem.Company_Name}
         <br />

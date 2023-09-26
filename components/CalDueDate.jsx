@@ -45,6 +45,9 @@ const CalDueDate = ({ jsonData, minDate, maxDate, bgColor }) => {
       return daysDifference >= minDate && daysDifference <= maxDate;
     });
 
+    // Sort the filtered tasks by task.id
+    filteredTasks.sort((a, b) => a.Organization_Code - b.Organization_Code);
+
     setTasksInRange(filteredTasks);
   }, [jsonData, minDate, maxDate]); // Include jsonData in the dependency array
 
@@ -113,7 +116,7 @@ const CalDueDate = ({ jsonData, minDate, maxDate, bgColor }) => {
               <br />
               <strong>ชื่อโครงการ: </strong> {task.Subject}
               <br />
-              <strong>เลขที่สัญญา: </strong> {task.Contract_Number}
+              <strong>สัญญาเลขที่: </strong> {task.Contract_Number}
               <br />
               <strong>จำนวนเงิน: </strong>{' '}
               {formatCurrency(parseInt(task.Amount))}
