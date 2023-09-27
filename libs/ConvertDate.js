@@ -45,7 +45,7 @@ const ConvertDate = (inputDate) => {
   const monthNameTh = monthNamesTh[monthIndex];
 
   // Construct the Thai date string
-  const thaiDate = `${day} ${monthNameTh} ${parseInt(year) + 2000}`; // Assuming years are in the 2000s
+  const thaiDate = `${day} ${monthNameTh} ${parseInt(year) + 2543}`; // Assuming years are in the 2000s
 
   return thaiDate;
 };

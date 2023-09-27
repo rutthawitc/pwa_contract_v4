@@ -53,17 +53,10 @@ export default function Home() {
       </h2>
       <CalDueDate
         jsonData={fillteredDate}
-        minDate={1}
-        maxDate={30}
-        bgColor={'bg-red-200'}
-      />
-      <div id='section2'></div>
-      {/* <CalDueDate
-        jsonData={fillteredDate}
         minDate={31}
         maxDate={90}
         bgColor={'bg-blue-200'}
-      /> */}
+      />
     </div>
   );
 }

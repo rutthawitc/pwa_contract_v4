@@ -119,7 +119,7 @@ const CalDueDate = ({ jsonData, minDate, maxDate, bgColor }) => {
               <strong>สัญญาเลขที่: </strong> {task.Contract_Number}
               <br />
               <strong>จำนวนเงิน: </strong>{' '}
-              {formatCurrency(parseInt(task.Amount))}
+              {formatCurrency(parseFloat(task.Amount))}
               <br />
               <strong>วันครบกำหนด: </strong>{' '}
               {ConvertDate(task.Contract_Due_Date)}
