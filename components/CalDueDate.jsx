@@ -31,15 +31,22 @@ const CalDueDate = ({ jsonData, minDate, maxDate, bgColor }) => {
     const filteredTasks = jsonData.filter((item) => {
       // Convert the 'd-M-y' formatted due date to a JavaScript Date object
       const dueDateParts = item.Contract_Due_Date.split('-');
+      //console.log('Due Date Part :', dueDateParts);
       const dueDate = new Date(
         parseInt(dueDateParts[2], 10) + 2000, // Assuming years are in the 2000s
         monthAbbreviations.indexOf(dueDateParts[1].toUpperCase()),
         parseInt(dueDateParts[0], 10)
       );
+      console.log('Due Date :', dueDate, '  Due Date Part :', dueDateParts);
+      console.log('Current Date :', currentDate);
+      //console.log(currentDate);
 
       // Calculate the difference in days between due date and current date
       const timeDifference = dueDate - currentDate;
       const daysDifference = timeDifference / (1000 * 3600 * 24);
+
+      //const dayDiff = Math.round(daysDifference);
+      console.log('Date Diff :', daysDifference, 'Days');
 
       // Check if due date is within the range of 1 to 30 days
       return daysDifference >= minDate && daysDifference <= maxDate;
@@ -47,6 +54,8 @@ const CalDueDate = ({ jsonData, minDate, maxDate, bgColor }) => {
 
     // Sort the filtered tasks by task.id
     filteredTasks.sort((a, b) => a.Organization_Code - b.Organization_Code);
+
+    console.log(filteredTasks);
 
     setTasksInRange(filteredTasks);
   }, [jsonData, minDate, maxDate]); // Include jsonData in the dependency array

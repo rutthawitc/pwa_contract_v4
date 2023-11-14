@@ -4,7 +4,7 @@ const FormatCurrency = (number) => {
   //   style: 'currency',
   //   currency: 'THB',
   // });
-  console.log(number);
+  //console.log(number);
   // Check if the number is not null or undefined
   if (number !== null && number !== undefined) {
     // Use toLocaleString to format the number with commas and two decimal places
