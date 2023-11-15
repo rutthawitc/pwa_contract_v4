@@ -18,7 +18,7 @@ const ContractDueDateChecker = ({
     const currentDate = new Date();
     const dueDateObj = new Date(dueDate);
     const currentDatePlusStart = new Date(currentDate);
-    currentDatePlusStart.setDate(currentDate.getDate() + startRange);
+    currentDatePlusStart.setDate(currentDate.getDate() + startRange - 1);
     console.log('currentDatePlusStart', currentDatePlusStart);
     const currentDatePlusEnd = new Date(currentDate);
     currentDatePlusEnd.setDate(currentDate.getDate() + startRange + endRange);
